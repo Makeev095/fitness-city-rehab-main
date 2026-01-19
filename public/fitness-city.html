@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <title>Fitness City — Фитнес и реабилитация / ЛФК</title>
+    <meta
+      name="description"
+      content="Безопасные тренировки, восстановление и укрепление здоровья"
+    />
+
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fitness City — Фитнес и реабилитация / ЛФК" />
+    <meta
+      property="og:description"
+      content="Профессиональные тренировки, восстановление и укрепление здоровья"
+    />
+    <meta property="og:image" content="/placeholder.svg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/placeholder.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+            },
+            colors: {
+              background: "hsl(var(--background))",
+              foreground: "hsl(var(--foreground))",
+              card: "hsl(var(--card))",
+              "card-foreground": "hsl(var(--card-foreground))",
+              muted: "hsl(var(--muted))",
+              "muted-foreground": "hsl(var(--muted-foreground))",
+              border: "hsl(var(--border))",
+              primary: {
+                DEFAULT: "hsl(var(--primary))",
+                foreground: "hsl(var(--primary-foreground))",
+              },
+              secondary: {
+                DEFAULT: "hsl(var(--secondary))",
+                foreground: "hsl(var(--secondary-foreground))",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Lucide icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      :root {
+        /* Single theme (no light mode): brand-gradient background + readable dark UI overlays */
+        --background: 0 0% 0% / 0;
+        --foreground: 0 0% 100%;
+        --card: 0 0% 0% / 0.38;
+        --card-foreground: 0 0% 100%;
+        --muted: 0 0% 0% / 0.26;
+        --muted-foreground: 0 0% 100% / 0.72;
+        --border: 0 0% 100% / 0.14;
+        --primary: 0 74% 44%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 210 97% 40%;
+        --secondary-foreground: 0 0% 100%;
+        --gradient-primary: linear-gradient(135deg, hsl(0 74% 44%) 0%, hsl(210 97% 40%) 100%);
+        /* Background: ONLY gradients from exact brand colors (no gray/black base fill). */
+        --site-bg: linear-gradient(
+            135deg,
+            rgb(3 102 200 / 0.62) 0%,
+            rgb(195 29 29 / 0.62) 100%
+          ),
+          radial-gradient(1200px circle at 12% 10%, rgb(3 102 200 / 0.75), transparent 62%),
+          radial-gradient(1200px circle at 88% 88%, rgb(195 29 29 / 0.70), transparent 62%);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      section[id] {
+        scroll-margin-top: 96px;
+      }
+      body {
+        background-image: var(--site-bg);
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .bg-gradient-primary {
+        background: var(--gradient-primary);
+      }
+      .glass {
+        backdrop-filter: blur(10px);
+        background: hsl(var(--card));
+        border: 1px solid hsl(var(--border));
+      }
+      .section-container {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+      @media (min-width: 768px) {
+        .section-container {
+          padding-top: 6rem;
+          padding-bottom: 6rem;
+        }
+      }
+      .card-hover {
+        transition: transform 300ms, box-shadow 300ms, border-color 300ms;
+      }
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.12);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        * {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-background text-foreground font-sans antialiased">
+    <!-- Header -->
+    <header id="siteHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-4">
+      <div class="container mx-auto px-4 flex items-center justify-between">
+        <a href="#hero" class="flex items-center gap-2 group">
+          <div class="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
+            FC
+          </div>
+          <span id="siteNameDesktop" class="font-bold text-lg hidden sm:block transition-colors text-white">
+            Fitness City
+          </span>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-6">
+          <a href="#about" class="font-medium transition-colors hover:text-primary text-white/90 hover:text-white">О нас</a>
+          <a href="#services" class="font-medium transition-colors hover:text-primary text-white/90 hover:text-white">Услуги</a>
+          <a href="#trainers" class="font-medium transition-colors hover:text-primary text-white/90 hover:text-white">Тренеры</a>
+          <a href="#pricing" class="font-medium transition-colors hover:text-primary text-white/90 hover:text-white">Цены</a>
+          <a href="#contacts" class="font-medium transition-colors hover:text-primary text-white/90 hover:text-white">Контакты</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a
+            class="hidden md:flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+            href="tel:+79991234567"
+          >
+            <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+            +7 (999) 123-45-67
+          </a>
+
+          <button
+            id="mobileMenuOpen"
+            class="lg:hidden inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-10 w-10"
+            aria-label="Открыть меню"
+            type="button"
+          >
+            <i data-lucide="menu" class="h-6 w-6 text-white" id="iconMenu"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile overlay -->
+    <div id="mobileOverlay" class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm lg:hidden opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+    <!-- Mobile drawer -->
+    <aside
+      id="mobileDrawer"
+      class="fixed top-0 right-0 h-full w-80 max-w-[85vw] z-50 bg-card shadow-xl lg:hidden translate-x-full transition-transform duration-300 ease-out"
+      aria-hidden="true"
+    >
+      <div class="flex flex-col h-full">
+        <div class="flex items-center justify-between p-4 border-b border-border">
+          <span class="font-bold text-lg">Fitness City</span>
+          <button
+            id="mobileMenuClose"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-10 w-10"
+            aria-label="Закрыть меню"
+            type="button"
+          >
+            <i data-lucide="x" class="h-6 w-6"></i>
+          </button>
+        </div>
+
+        <nav class="flex-1 p-4">
+          <ul class="space-y-2">
+            <li><a class="block py-3 px-4 rounded-lg font-medium text-foreground hover:bg-muted transition-colors" href="#about">О нас</a></li>
+            <li><a class="block py-3 px-4 rounded-lg font-medium text-foreground hover:bg-muted transition-colors" href="#services">Услуги</a></li>
+            <li><a class="block py-3 px-4 rounded-lg font-medium text-foreground hover:bg-muted transition-colors" href="#trainers">Тренеры</a></li>
+            <li><a class="block py-3 px-4 rounded-lg font-medium text-foreground hover:bg-muted transition-colors" href="#pricing">Цены</a></li>
+            <li><a class="block py-3 px-4 rounded-lg font-medium text-foreground hover:bg-muted transition-colors" href="#contacts">Контакты</a></li>
+          </ul>
+        </nav>
+
+        <div class="p-4 border-t border-border space-y-3">
+          <a class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" href="tel:+79991234567">
+            <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+            Позвонить
+          </a>
+          <div class="flex gap-2">
+            <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-10 px-4 py-2" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-10 px-4 py-2" href="https://t.me/fitnesscity" target="_blank" rel="noopener noreferrer">Telegram</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="min-h-screen">
+      <!-- Hero -->
+      <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&h=1080&fit=crop"
+            alt="Фитнес-центр Fitness City"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-4 py-32 text-center text-white">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+            <span class="block">Fitness City</span>
+            <span class="block text-2xl sm:text-3xl md:text-4xl font-normal mt-2 opacity-90">Фитнес и реабилитация / ЛФК</span>
+          </h1>
+          <p class="text-lg sm:text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-8">
+            Безопасные тренировки, восстановление и укрепление здоровья
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <a
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8"
+              href="tel:+79991234567"
+            >
+              <i data-lucide="phone" class="w-5 h-5 mr-2"></i>
+              Позвонить
+            </a>
+            <a
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-white text-white hover:bg-white hover:text-black bg-white/10 h-12 px-8"
+              href="https://wa.me/79991234567"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+              WhatsApp
+            </a>
+            <a
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-white text-white hover:bg-white hover:text-black bg-white/10 h-12 px-8"
+              href="https://t.me/fitnesscity"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i data-lucide="send" class="w-5 h-5 mr-2"></i>
+              Telegram
+            </a>
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-3">
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm">
+              <i data-lucide="user" class="w-4 h-4 text-primary"></i><span>Индивидуальный подход</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm">
+              <i data-lucide="heart" class="w-4 h-4 text-primary"></i><span>Бережные методики</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm">
+              <i data-lucide="award" class="w-4 h-4 text-primary"></i><span>Опытные специалисты</span>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm">
+              <i data-lucide="home" class="w-4 h-4 text-primary"></i><span>Комфортный зал</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div class="w-8 h-12 rounded-full border-2 border-white/50 flex items-start justify-center p-2">
+            <div class="w-1 h-3 bg-white/70 rounded-full animate-pulse"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="section-container bg-transparent">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">О нас</h2>
+            <p class="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Ваш путь к здоровью и хорошему самочувствию
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-16">
+            <div class="space-y-4">
+              <p class="text-muted-foreground leading-relaxed">
+                Fitness City — это современный фитнес-центр, специализирующийся на восстановительных тренировках и лечебной физкультуре. Мы создали пространство, где каждый может заниматься безопасно и эффективно, независимо от уровня подготовки и состояния здоровья.
+              </p>
+              <p class="text-muted-foreground leading-relaxed">
+                Наш подход основан на индивидуальной работе с каждым клиентом. Мы внимательно изучаем ваши цели, особенности организма и возможные ограничения, чтобы разработать программу, которая подходит именно вам.
+              </p>
+            </div>
+            <div class="space-y-4">
+              <p class="text-muted-foreground leading-relaxed">
+                Мы работаем с людьми, которым важно восстановиться после травм или операций, укрепить спину, улучшить подвижность суставов или просто поддерживать тело в тонусе бережными методами.
+              </p>
+              <div class="relative aspect-video rounded-xl overflow-hidden mt-4">
+                <img
+                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=450&fit=crop"
+                  alt="Тренировка в Fitness City"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mb-8">
+            <h3 class="text-2xl sm:text-3xl font-bold">Почему нам доверяют</h3>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-card rounded-xl p-6 text-center card-hover border border-border hover:border-primary/50">
+              <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="shield" class="w-7 h-7 text-primary"></i>
+              </div>
+              <h4 class="font-semibold text-lg mb-2">Безопасность</h4>
+              <p class="text-sm text-muted-foreground">Все программы разрабатываются с учётом индивидуальных особенностей и ограничений</p>
+            </div>
+            <div class="bg-card rounded-xl p-6 text-center card-hover border border-border hover:border-primary/50">
+              <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="graduation-cap" class="w-7 h-7 text-primary"></i>
+              </div>
+              <h4 class="font-semibold text-lg mb-2">Квалификация</h4>
+              <p class="text-sm text-muted-foreground">Тренеры с профильным образованием и опытом работы в реабилитации</p>
+            </div>
+            <div class="bg-card rounded-xl p-6 text-center card-hover border border-border hover:border-primary/50">
+              <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="target" class="w-7 h-7 text-primary"></i>
+              </div>
+              <h4 class="font-semibold text-lg mb-2">Результат</h4>
+              <p class="text-sm text-muted-foreground">Программы под конкретные цели: восстановление, укрепление, поддержание формы</p>
+            </div>
+            <div class="bg-card rounded-xl p-6 text-center card-hover border border-border hover:border-primary/50">
+              <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="users" class="w-7 h-7 text-primary"></i>
+              </div>
+              <h4 class="font-semibold text-lg mb-2">Индивидуальный подход</h4>
+              <p class="text-sm text-muted-foreground">Персональное внимание и адаптация нагрузок под ваши потребности</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services" class="section-container bg-transparent">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Наши услуги</h2>
+            <p class="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Программы для восстановления, укрепления здоровья и поддержания формы
+            </p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Card template repeated -->
+            <div class="bg-card rounded-xl p-6 h-full flex flex-col border border-border card-hover hover:border-secondary/50">
+              <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                <i data-lucide="activity" class="w-6 h-6 text-secondary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">Восстановительные тренировки</h3>
+              <p class="text-sm text-muted-foreground mb-3 flex-grow">
+                Программы для тех, кто восстанавливается после травм или операций. Бережный подход к восстановлению двигательных функций и укреплению ослабленных мышц.
+              </p>
+              <p class="text-xs text-muted-foreground/80 italic mb-4 pb-4 border-b border-border">
+                Для тех, кто прошёл лечение и готов к постепенному возвращению к активности
+              </p>
+              <div class="flex gap-2">
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-9 px-3" href="tel:+79991234567">
+                  <i data-lucide="phone" class="w-3 h-3 mr-1"></i>Позвонить
+                </a>
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i>WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-card rounded-xl p-6 h-full flex flex-col border border-border card-hover hover:border-secondary/50">
+              <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                <i data-lucide="heart-pulse" class="w-6 h-6 text-secondary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">ЛФК / Лечебная гимнастика</h3>
+              <p class="text-sm text-muted-foreground mb-3 flex-grow">
+                Специальные упражнения для поддержания и укрепления здоровья. Занятия проводятся под контролем специалистов с учётом рекомендаций врачей.
+              </p>
+              <p class="text-xs text-muted-foreground/80 italic mb-4 pb-4 border-b border-border">
+                Для тех, кому рекомендованы занятия лечебной физкультурой
+              </p>
+              <div class="flex gap-2">
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-9 px-3" href="tel:+79991234567">
+                  <i data-lucide="phone" class="w-3 h-3 mr-1"></i>Позвонить
+                </a>
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i>WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-card rounded-xl p-6 h-full flex flex-col border border-border card-hover hover:border-secondary/50">
+              <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                <!-- custom spine icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-secondary">
+                  <path d="M12 2v4M12 18v4M12 10v4" />
+                  <rect x="8" y="4" width="8" height="4" rx="1" />
+                  <rect x="8" y="12" width="8" height="4" rx="1" />
+                </svg>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">Здоровая спина</h3>
+              <p class="text-sm text-muted-foreground mb-3 flex-grow">
+                Комплекс упражнений для укрепления мышечного корсета, улучшения осанки и снятия напряжения. Профилактика болей в спине и шее.
+              </p>
+              <p class="text-xs text-muted-foreground/80 italic mb-4 pb-4 border-b border-border">
+                Для офисных работников и всех, кто много сидит
+              </p>
+              <div class="flex gap-2">
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-9 px-3" href="tel:+79991234567">
+                  <i data-lucide="phone" class="w-3 h-3 mr-1"></i>Позвонить
+                </a>
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i>WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-card rounded-xl p-6 h-full flex flex-col border border-border card-hover hover:border-secondary/50">
+              <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                <i data-lucide="user-check" class="w-6 h-6 text-secondary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">Персональные тренировки</h3>
+              <p class="text-sm text-muted-foreground mb-3 flex-grow">
+                Индивидуальные занятия с тренером по программе, разработанной специально для вас. Максимум внимания и контроля техники.
+              </p>
+              <p class="text-xs text-muted-foreground/80 italic mb-4 pb-4 border-b border-border">
+                Для тех, кто ценит персональный подход и эффективность
+              </p>
+              <div class="flex gap-2">
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-9 px-3" href="tel:+79991234567">
+                  <i data-lucide="phone" class="w-3 h-3 mr-1"></i>Позвонить
+                </a>
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i>WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-card rounded-xl p-6 h-full flex flex-col border border-border card-hover hover:border-secondary/50">
+              <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                <i data-lucide="flower-2" class="w-6 h-6 text-secondary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">Мягкая растяжка / Mobility</h3>
+              <p class="text-sm text-muted-foreground mb-3 flex-grow">
+                Бережные занятия для улучшения подвижности суставов, гибкости и расслабления. Подходит для любого уровня подготовки.
+              </p>
+              <p class="text-xs text-muted-foreground/80 italic mb-4 pb-4 border-b border-border">
+                Для тех, кто хочет улучшить гибкость и подвижность
+              </p>
+              <div class="flex gap-2">
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-9 px-3" href="tel:+79991234567">
+                  <i data-lucide="phone" class="w-3 h-3 mr-1"></i>Позвонить
+                </a>
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i>WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-card rounded-xl p-6 h-full flex flex-col border border-border card-hover hover:border-secondary/50">
+              <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                <i data-lucide="users" class="w-6 h-6 text-secondary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">Групповые занятия</h3>
+              <p class="text-sm text-muted-foreground mb-3 flex-grow">
+                Занятия в малых группах до 8 человек. Комфортная атмосфера, индивидуальный контроль и поддержка единомышленников.
+              </p>
+              <p class="text-xs text-muted-foreground/80 italic mb-4 pb-4 border-b border-border">
+                Для тех, кто любит заниматься в компании
+              </p>
+              <div class="flex gap-2">
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-9 px-3" href="tel:+79991234567">
+                  <i data-lucide="phone" class="w-3 h-3 mr-1"></i>Позвонить
+                </a>
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i>WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-card rounded-xl p-6 h-full flex flex-col border border-border card-hover hover:border-secondary/50">
+              <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                <i data-lucide="heart" class="w-6 h-6 text-secondary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">Программа 55+</h3>
+              <p class="text-sm text-muted-foreground mb-3 flex-grow">
+                Специальные занятия для старшего возраста с акцентом на безопасность, укрепление суставов и поддержание активности.
+              </p>
+              <p class="text-xs text-muted-foreground/80 italic mb-4 pb-4 border-b border-border">
+                Для людей старше 55 лет
+              </p>
+              <div class="flex gap-2">
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-9 px-3" href="tel:+79991234567">
+                  <i data-lucide="phone" class="w-3 h-3 mr-1"></i>Позвонить
+                </a>
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i>WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-card rounded-xl p-6 h-full flex flex-col border border-border card-hover hover:border-secondary/50">
+              <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                <i data-lucide="align-vertical-space-around" class="w-6 h-6 text-secondary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">Коррекция осанки</h3>
+              <p class="text-sm text-muted-foreground mb-3 flex-grow">
+                Программа для формирования правильной осанки, укрепления мышц спины и груди. Работа над балансом и координацией.
+              </p>
+              <p class="text-xs text-muted-foreground/80 italic mb-4 pb-4 border-b border-border">
+                Для тех, кто хочет улучшить осанку
+              </p>
+              <div class="flex gap-2">
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-9 px-3" href="tel:+79991234567">
+                  <i data-lucide="phone" class="w-3 h-3 mr-1"></i>Позвонить
+                </a>
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 hover:bg-muted h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i>WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trainers -->
+      <section id="trainers" class="section-container bg-transparent">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Наши тренеры</h2>
+            <p class="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Опытные специалисты, которые помогут достичь ваших целей
+            </p>
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-2 mb-10">
+            <button data-filter="all" class="trainerFilter rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-3 h-9 text-sm font-medium">Все</button>
+            <button data-filter="ЛФК" class="trainerFilter rounded-full border border-border bg-background hover:bg-muted px-3 h-9 text-sm font-medium">ЛФК</button>
+            <button data-filter="Реабилитация" class="trainerFilter rounded-full border border-border bg-background hover:bg-muted px-3 h-9 text-sm font-medium">Реабилитация</button>
+            <button data-filter="Силовой" class="trainerFilter rounded-full border border-border bg-background hover:bg-muted px-3 h-9 text-sm font-medium">Силовой</button>
+            <button data-filter="Растяжка" class="trainerFilter rounded-full border border-border bg-background hover:bg-muted px-3 h-9 text-sm font-medium">Растяжка</button>
+          </div>
+
+          <div id="trainersGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Cards use data-tags for filtering -->
+            <article class="trainerCard bg-card rounded-xl overflow-hidden border border-border card-hover group" data-tags="ЛФК,Реабилитация">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=400&h=500&fit=crop" alt="Александр Петров" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                  <div class="flex gap-2">
+                    <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-secondary hover:bg-secondary/90 text-white h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                      <i data-lucide="message-circle" class="w-4 h-4 mr-1"></i>WhatsApp
+                    </a>
+                    <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 text-white h-9 px-3" href="https://t.me/fitnesscity" target="_blank" rel="noopener noreferrer">
+                      <i data-lucide="send" class="w-4 h-4 mr-1"></i>Telegram
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-lg">Александр Петров</h3>
+                <p class="text-sm text-muted-foreground mb-2">Реабилитация, ЛФК</p>
+                <p class="text-xs text-secondary font-medium mb-3">12 лет опыта</p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-xs bg-muted px-2 py-1 rounded-full">ЛФК</span>
+                  <span class="text-xs bg-muted px-2 py-1 rounded-full">Реабилитация</span>
+                </div>
+                <div class="mt-3 pt-3 border-t border-border">
+                  <p class="text-xs text-muted-foreground">Сертифицированный реабилитолог • Специалист по ЛФК</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="trainerCard bg-card rounded-xl overflow-hidden border border-border card-hover group" data-tags="ЛФК,Здоровая спина">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&h=500&fit=crop" alt="Елена Соколова" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                  <div class="flex gap-2">
+                    <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-secondary hover:bg-secondary/90 text-white h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                      <i data-lucide="message-circle" class="w-4 h-4 mr-1"></i>WhatsApp
+                    </a>
+                    <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 text-white h-9 px-3" href="https://t.me/fitnesscity" target="_blank" rel="noopener noreferrer">
+                      <i data-lucide="send" class="w-4 h-4 mr-1"></i>Telegram
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-lg">Елена Соколова</h3>
+                <p class="text-sm text-muted-foreground mb-2">Лечебная гимнастика, Здоровая спина</p>
+                <p class="text-xs text-secondary font-medium mb-3">8 лет опыта</p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-xs bg-muted px-2 py-1 rounded-full">ЛФК</span>
+                  <span class="text-xs bg-muted px-2 py-1 rounded-full">Здоровая спина</span>
+                </div>
+                <div class="mt-3 pt-3 border-t border-border">
+                  <p class="text-xs text-muted-foreground">Инструктор ЛФК • Кинезиолог</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="trainerCard bg-card rounded-xl overflow-hidden border border-border card-hover group" data-tags="Силовой,Персональный">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=500&fit=crop" alt="Дмитрий Волков" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                  <div class="flex gap-2">
+                    <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-secondary hover:bg-secondary/90 text-white h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                      <i data-lucide="message-circle" class="w-4 h-4 mr-1"></i>WhatsApp
+                    </a>
+                    <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 text-white h-9 px-3" href="https://t.me/fitnesscity" target="_blank" rel="noopener noreferrer">
+                      <i data-lucide="send" class="w-4 h-4 mr-1"></i>Telegram
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-lg">Дмитрий Волков</h3>
+                <p class="text-sm text-muted-foreground mb-2">Силовой тренинг, Персональные тренировки</p>
+                <p class="text-xs text-secondary font-medium mb-3">10 лет опыта</p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-xs bg-muted px-2 py-1 rounded-full">Силовой</span>
+                  <span class="text-xs bg-muted px-2 py-1 rounded-full">Персональный</span>
+                </div>
+                <div class="mt-3 pt-3 border-t border-border">
+                  <p class="text-xs text-muted-foreground">Персональный тренер • Специалист по силовой подготовке</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="trainerCard bg-card rounded-xl overflow-hidden border border-border card-hover group" data-tags="Растяжка,Mobility">
+              <div class="relative aspect-[4/5] overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=500&fit=crop" alt="Мария Козлова" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                  <div class="flex gap-2">
+                    <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-secondary hover:bg-secondary/90 text-white h-9 px-3" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                      <i data-lucide="message-circle" class="w-4 h-4 mr-1"></i>WhatsApp
+                    </a>
+                    <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 text-white h-9 px-3" href="https://t.me/fitnesscity" target="_blank" rel="noopener noreferrer">
+                      <i data-lucide="send" class="w-4 h-4 mr-1"></i>Telegram
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="font-semibold text-lg">Мария Козлова</h3>
+                <p class="text-sm text-muted-foreground mb-2">Mobility, Растяжка, Йога</p>
+                <p class="text-xs text-secondary font-medium mb-3">6 лет опыта</p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="text-xs bg-muted px-2 py-1 rounded-full">Растяжка</span>
+                  <span class="text-xs bg-muted px-2 py-1 rounded-full">Mobility</span>
+                </div>
+                <div class="mt-3 pt-3 border-t border-border">
+                  <p class="text-xs text-muted-foreground">Инструктор по йоге • Специалист по растяжке</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section id="pricing" class="section-container bg-transparent">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Цены</h2>
+            <p class="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Прозрачное ценообразование без скрытых платежей
+            </p>
+          </div>
+
+          <div class="space-y-10">
+            <div>
+              <h3 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Разовые занятия</h3>
+              <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">Персональная тренировка</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">3 500 ₽</p>
+                  <p class="text-sm text-muted-foreground">60 мин</p>
+                </div>
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">ЛФК индивидуально</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">3 000 ₽</p>
+                  <p class="text-sm text-muted-foreground">45 мин</p>
+                </div>
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">Групповое занятие</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">800 ₽</p>
+                  <p class="text-sm text-muted-foreground">60 мин</p>
+                </div>
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">Растяжка / Mobility</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">1 200 ₽</p>
+                  <p class="text-sm text-muted-foreground">60 мин</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Абонементы</h3>
+              <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">4 персональные тренировки</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">12 000 ₽</p>
+                  <p class="text-sm text-muted-foreground mb-3">1 месяц</p>
+                  <div class="flex items-center gap-1.5 text-secondary text-sm">
+                    <i data-lucide="check" class="w-4 h-4"></i>Экономия 2 000 ₽
+                  </div>
+                </div>
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">8 персональных тренировок</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">22 000 ₽</p>
+                  <p class="text-sm text-muted-foreground mb-3">1 месяц</p>
+                  <div class="flex items-center gap-1.5 text-secondary text-sm">
+                    <i data-lucide="check" class="w-4 h-4"></i>Экономия 6 000 ₽
+                  </div>
+                </div>
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">12 групповых занятий</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">7 200 ₽</p>
+                  <p class="text-sm text-muted-foreground mb-3">1 месяц</p>
+                  <div class="flex items-center gap-1.5 text-secondary text-sm">
+                    <i data-lucide="check" class="w-4 h-4"></i>Экономия 2 400 ₽
+                  </div>
+                </div>
+                <div class="bg-card rounded-xl p-5 border border-border card-hover relative overflow-hidden border-secondary ring-2 ring-secondary/20">
+                  <div class="absolute top-0 right-0 bg-secondary text-secondary-foreground text-xs font-medium px-3 py-1 rounded-bl-lg flex items-center gap-1">
+                    <i data-lucide="star" class="w-3 h-3"></i>Популярный
+                  </div>
+                  <h4 class="font-medium mb-2 pr-16">Безлимит групповые</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">9 000 ₽</p>
+                  <p class="text-sm text-muted-foreground">1 месяц</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-xl sm:text-2xl font-semibold mb-6 text-center">Специальные программы</h3>
+              <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">Восстановление (10 занятий)</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">28 000 ₽</p>
+                  <p class="text-sm text-muted-foreground">индивидуально</p>
+                </div>
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">Здоровая спина (8 занятий)</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">18 000 ₽</p>
+                  <p class="text-sm text-muted-foreground">1 месяц</p>
+                </div>
+                <div class="bg-card rounded-xl p-5 border border-border card-hover">
+                  <h4 class="font-medium mb-2">Первичная консультация</h4>
+                  <p class="text-2xl font-bold text-primary mb-1">Бесплатно</p>
+                  <p class="text-sm text-muted-foreground">30 мин</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-12 text-center">
+            <p class="text-sm text-muted-foreground mb-6">
+              * Актуальные цены уточняйте по телефону или в мессенджерах
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+              <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/90 h-11 px-8" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>Получить прайс в WhatsApp
+              </a>
+              <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-11 px-8" href="/price-list.pdf" download>
+                <i data-lucide="download" class="w-5 h-5 mr-2"></i>Скачать PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Location -->
+      <section id="location" class="section-container bg-transparent">
+        <div class="container mx-auto px-4 max-w-6xl">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Как добраться</h2>
+            <p class="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Мы находимся в удобном месте с хорошей транспортной доступностью
+            </p>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-8 items-center">
+            <div class="relative aspect-video lg:aspect-square rounded-xl overflow-hidden border border-border shadow-lg">
+              <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=1200&h=600&fit=crop" alt="Карта расположения Fitness City" class="w-full h-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-center justify-center">
+                <div class="text-center text-white">
+                  <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-4 animate-bounce">
+                    <i data-lucide="map-pin" class="w-8 h-8"></i>
+                  </div>
+                  <p class="font-semibold text-lg">Fitness City</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-card rounded-xl p-6 border border-border">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <i data-lucide="map-pin" class="w-6 h-6 text-primary"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-lg mb-1">Адрес</h3>
+                    <p class="text-muted-foreground">г. Москва, ул. Спортивная, д. 15</p>
+                    <p class="text-sm text-muted-foreground mt-2">5 минут от метро, удобная парковка</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8" href="https://yandex.ru/maps/-/CCUMqKXXXX" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="navigation" class="w-5 h-5 mr-2"></i>Открыть в Яндекс.Картах
+                </a>
+                <a class="flex-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 border border-border bg-background hover:bg-muted h-11 px-8" href="https://goo.gl/maps/XXXXX" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="navigation" class="w-5 h-5 mr-2"></i>Открыть в Google Maps
+                </a>
+              </div>
+
+              <div class="text-sm text-muted-foreground bg-muted/50 rounded-lg p-4">
+                <p class="font-medium text-foreground mb-2">Как добраться:</p>
+                <ul class="space-y-1">
+                  <li>• Метро: станция «Спортивная», выход 2</li>
+                  <li>• Автобус: остановка «Фитнес-центр», маршруты 10, 25, 48</li>
+                  <li>• На машине: бесплатная парковка на территории</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Schedule -->
+      <section id="schedule" class="section-container bg-transparent">
+        <div class="container mx-auto px-4 max-w-3xl">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">График работы</h2>
+            <p class="text-lg sm:text-xl text-muted-foreground">Мы работаем каждый день для вашего удобства</p>
+          </div>
+
+          <div class="bg-card rounded-xl border border-border overflow-hidden">
+            <div class="bg-secondary/10 p-4 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
+                <i data-lucide="clock" class="w-5 h-5 text-secondary-foreground"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold">Часы работы</h3>
+                <p class="text-sm text-muted-foreground">Ждём вас каждый день</p>
+              </div>
+            </div>
+
+            <div class="divide-y divide-border" id="scheduleList">
+              <div class="scheduleRow flex justify-between items-center p-4 hover:bg-muted/50 transition-colors" data-day="1">
+                <span class="font-medium">Понедельник</span><span class="text-muted-foreground font-mono">07:00 – 23:00</span>
+              </div>
+              <div class="scheduleRow flex justify-between items-center p-4 hover:bg-muted/50 transition-colors" data-day="2">
+                <span class="font-medium">Вторник</span><span class="text-muted-foreground font-mono">07:00 – 23:00</span>
+              </div>
+              <div class="scheduleRow flex justify-between items-center p-4 hover:bg-muted/50 transition-colors" data-day="3">
+                <span class="font-medium">Среда</span><span class="text-muted-foreground font-mono">07:00 – 23:00</span>
+              </div>
+              <div class="scheduleRow flex justify-between items-center p-4 hover:bg-muted/50 transition-colors" data-day="4">
+                <span class="font-medium">Четверг</span><span class="text-muted-foreground font-mono">07:00 – 23:00</span>
+              </div>
+              <div class="scheduleRow flex justify-between items-center p-4 hover:bg-muted/50 transition-colors" data-day="5">
+                <span class="font-medium">Пятница</span><span class="text-muted-foreground font-mono">07:00 – 23:00</span>
+              </div>
+              <div class="scheduleRow flex justify-between items-center p-4 hover:bg-muted/50 transition-colors" data-day="6">
+                <span class="font-medium">Суббота</span><span class="text-muted-foreground font-mono">08:00 – 22:00</span>
+              </div>
+              <div class="scheduleRow flex justify-between items-center p-4 hover:bg-muted/50 transition-colors" data-day="0">
+                <span class="font-medium">Воскресенье</span><span class="text-muted-foreground font-mono">09:00 – 21:00</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-center text-sm text-muted-foreground mt-6">
+            В праздничные дни график может меняться — уточняйте по телефону
+          </p>
+        </div>
+      </section>
+
+      <!-- Contacts -->
+      <section id="contacts" class="section-container bg-transparent">
+        <div class="container mx-auto px-4 max-w-4xl">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Контакты</h2>
+            <p class="text-lg sm:text-xl text-muted-foreground">Свяжитесь с нами удобным для вас способом</p>
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-4 mb-10">
+            <a class="h-auto py-6 flex flex-col items-center gap-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors" href="tel:+79991234567">
+              <i data-lucide="phone" class="w-8 h-8"></i>
+              <span class="font-semibold">Позвонить</span>
+              <span class="text-sm opacity-90">+7 (999) 123-45-67</span>
+            </a>
+            <a class="h-auto py-6 flex flex-col items-center gap-2 rounded-md bg-secondary text-white hover:bg-secondary/90 transition-colors" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="message-circle" class="w-8 h-8"></i>
+              <span class="font-semibold">WhatsApp</span>
+              <span class="text-sm opacity-90">Написать сообщение</span>
+            </a>
+            <a class="h-auto py-6 flex flex-col items-center gap-2 rounded-md bg-primary text-white hover:bg-primary/90 transition-colors" href="https://t.me/fitnesscity" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="send" class="w-8 h-8"></i>
+              <span class="font-semibold">Telegram</span>
+              <span class="text-sm opacity-90">Написать сообщение</span>
+            </a>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <a class="bg-card rounded-xl p-5 border border-border card-hover flex items-center gap-4 group" href="mailto:info@fitnesscity.ru">
+              <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center group-hover:bg-secondary group-hover:text-secondary-foreground transition-colors">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <p class="text-sm text-muted-foreground">Email</p>
+                <p class="font-medium">info@fitnesscity.ru</p>
+              </div>
+            </a>
+            <a class="bg-card rounded-xl p-5 border border-border card-hover flex items-center gap-4 group" href="https://yandex.ru/maps/-/CCUMqKXXXX" target="_blank" rel="noopener noreferrer">
+              <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <p class="text-sm text-muted-foreground">Адрес</p>
+                <p class="font-medium">г. Москва, ул. Спортивная, д. 15</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="mt-12 text-center">
+            <div class="inline-block bg-gradient-primary text-white rounded-2xl p-8 max-w-xl">
+              <h3 class="text-xl sm:text-2xl font-bold mb-2">Начните путь к здоровью сегодня</h3>
+              <p class="text-white/90 mb-4">
+                Первая консультация — бесплатно. Мы подберём программу специально для вас.
+              </p>
+              <a class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:pointer-events-none disabled:opacity-50 bg-white text-foreground hover:bg-white/90 h-11 px-8" href="tel:+79991234567">
+                <i data-lucide="phone" class="w-5 h-5 mr-2"></i>Записаться на консультацию
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-card border-t border-border">
+      <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="space-y-4">
+            <div class="flex items-center gap-2">
+              <div class="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center text-white font-bold text-xl">
+                FC
+              </div>
+              <span class="font-bold text-lg">Fitness City</span>
+            </div>
+            <p class="text-muted-foreground text-sm">
+              Безопасные тренировки, восстановление и укрепление здоровья
+            </p>
+            <div class="flex gap-3">
+              <a class="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors" href="https://instagram.com/fitnesscity" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i data-lucide="instagram" class="w-5 h-5"></i>
+              </a>
+              <a class="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors" href="https://vk.com/fitnesscity" target="_blank" rel="noopener noreferrer" aria-label="VK">
+                <span class="font-bold text-sm">VK</span>
+              </a>
+              <a class="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors" href="https://youtube.com/@fitnesscity" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i data-lucide="youtube" class="w-5 h-5"></i>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-4">Навигация</h4>
+            <ul class="space-y-2">
+              <li><a class="text-muted-foreground hover:text-primary transition-colors text-sm" href="#about">О нас</a></li>
+              <li><a class="text-muted-foreground hover:text-primary transition-colors text-sm" href="#services">Услуги</a></li>
+              <li><a class="text-muted-foreground hover:text-primary transition-colors text-sm" href="#trainers">Тренеры</a></li>
+              <li><a class="text-muted-foreground hover:text-primary transition-colors text-sm" href="#pricing">Цены</a></li>
+              <li><a class="text-muted-foreground hover:text-primary transition-colors text-sm" href="#contacts">Контакты</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-4">Контакты</h4>
+            <ul class="space-y-3">
+              <li>
+                <a class="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm" href="tel:+79991234567">
+                  <i data-lucide="phone" class="w-4 h-4"></i>+7 (999) 123-45-67
+                </a>
+              </li>
+              <li>
+                <a class="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm" href="mailto:info@fitnesscity.ru">
+                  <i data-lucide="mail" class="w-4 h-4"></i>info@fitnesscity.ru
+                </a>
+              </li>
+              <li class="flex items-start gap-2 text-muted-foreground text-sm">
+                <i data-lucide="map-pin" class="w-4 h-4 mt-0.5 shrink-0"></i>г. Москва, ул. Спортивная, д. 15
+              </li>
+              <li class="flex gap-2 pt-2">
+                <a class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors" href="https://wa.me/79991234567" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>WhatsApp
+                </a>
+                <a class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors" href="https://t.me/fitnesscity" target="_blank" rel="noopener noreferrer">
+                  <i data-lucide="send" class="w-4 h-4"></i>Telegram
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-4">Режим работы</h4>
+            <ul class="space-y-2 text-sm text-muted-foreground">
+              <li class="flex justify-between"><span>Пн–Пт</span><span>07:00 – 23:00</span></li>
+              <li class="flex justify-between"><span>Суббота</span><span>08:00 – 22:00</span></li>
+              <li class="flex justify-between"><span>Воскресенье</span><span>09:00 – 21:00</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+          <p>© <span id="year"></span> Fitness City. Все права защищены.</p>
+          <a class="hover:text-primary transition-colors" href="#privacy">Политика конфиденциальности</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Icons
+      lucide.createIcons();
+
+      // Footer year
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+
+      // Single theme: no light mode / no theme toggle
+      localStorage.removeItem("theme");
+      localStorage.removeItem("fitness-city-theme");
+
+      // Header scroll style
+      const siteHeader = document.getElementById("siteHeader");
+      const siteNameDesktop = document.getElementById("siteNameDesktop");
+      const iconMenu = document.getElementById("iconMenu");
+      function onScroll() {
+        const scrolled = window.scrollY > 50;
+        if (scrolled) {
+          siteHeader.classList.add("glass", "py-2", "shadow-lg");
+          siteHeader.classList.remove("bg-transparent", "py-4");
+          siteNameDesktop.classList.remove("text-white");
+          siteNameDesktop.classList.add("text-foreground");
+          iconMenu.classList.remove("text-white");
+          iconMenu.classList.add("text-foreground");
+        } else {
+          siteHeader.classList.remove("glass", "py-2", "shadow-lg");
+          siteHeader.classList.add("bg-transparent", "py-4");
+          siteNameDesktop.classList.add("text-white");
+          siteNameDesktop.classList.remove("text-foreground");
+          iconMenu.classList.add("text-white");
+          iconMenu.classList.remove("text-foreground");
+        }
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      // Mobile menu
+      const mobileOverlay = document.getElementById("mobileOverlay");
+      const mobileDrawer = document.getElementById("mobileDrawer");
+      const mobileMenuOpen = document.getElementById("mobileMenuOpen");
+      const mobileMenuClose = document.getElementById("mobileMenuClose");
+
+      function openMenu() {
+        mobileOverlay.classList.remove("opacity-0", "pointer-events-none");
+        mobileOverlay.classList.add("opacity-100");
+        mobileDrawer.classList.remove("translate-x-full");
+        mobileDrawer.classList.add("translate-x-0");
+        mobileDrawer.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+      function closeMenu() {
+        mobileOverlay.classList.add("opacity-0", "pointer-events-none");
+        mobileOverlay.classList.remove("opacity-100");
+        mobileDrawer.classList.add("translate-x-full");
+        mobileDrawer.classList.remove("translate-x-0");
+        mobileDrawer.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      mobileMenuOpen.addEventListener("click", openMenu);
+      mobileMenuClose.addEventListener("click", closeMenu);
+      mobileOverlay.addEventListener("click", closeMenu);
+      mobileDrawer.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener("click", closeMenu));
+
+      // Trainers filter
+      const filterButtons = Array.from(document.querySelectorAll(".trainerFilter"));
+      const trainerCards = Array.from(document.querySelectorAll(".trainerCard"));
+      function setActiveFilter(value) {
+        filterButtons.forEach((btn) => {
+          const isActive = btn.getAttribute("data-filter") === value;
+          btn.classList.toggle("bg-secondary", isActive);
+          btn.classList.toggle("text-secondary-foreground", isActive);
+          btn.classList.toggle("hover:bg-secondary/90", isActive);
+          btn.classList.toggle("border", !isActive);
+          btn.classList.toggle("border-border", !isActive);
+          btn.classList.toggle("bg-background", !isActive);
+          btn.classList.toggle("hover:bg-muted", !isActive);
+        });
+
+        trainerCards.forEach((card) => {
+          if (value === "all") {
+            card.classList.remove("hidden");
+            return;
+          }
+          const tags = (card.getAttribute("data-tags") || "").split(",").map((s) => s.trim());
+          card.classList.toggle("hidden", !tags.some((t) => t.includes(value)));
+        });
+      }
+      filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => setActiveFilter(btn.getAttribute("data-filter")));
+      });
+      setActiveFilter("all");
+
+      // Schedule highlight today
+      const today = new Date().getDay(); // 0..6 (Sun..Sat)
+      const rows = Array.from(document.querySelectorAll(".scheduleRow"));
+      rows.forEach((row) => {
+        if (Number(row.getAttribute("data-day")) === today) {
+          row.classList.add("bg-primary/5", "border-l-4", "border-l-primary");
+          const label = row.querySelector("span.font-medium");
+          label.classList.add("text-primary");
+          const badge = document.createElement("span");
+          badge.className = "ml-2 text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full";
+          badge.textContent = "сегодня";
+          label.appendChild(badge);
+        }
+      });
+    </script>
+  </body>
+</html>
+
+ 
