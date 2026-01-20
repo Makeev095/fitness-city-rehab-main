@@ -11,10 +11,11 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center text-white font-bold text-xl">
-                FC
-              </div>
-              <span className="font-bold text-lg">{siteConfig.name}</span>
+              <img 
+                src="/logo.png" 
+                alt={siteConfig.name}
+                className="h-32 md:h-36 w-auto object-contain"
+              />
             </div>
             <p className="text-muted-foreground text-sm">
               {siteConfig.description}

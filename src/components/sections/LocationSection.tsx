@@ -2,7 +2,6 @@ import { MapPin, Navigation } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/siteConfig";
-import { SafeImage } from "@/components/SafeImage";
 
 export function LocationSection() {
   return (
@@ -20,23 +19,19 @@ export function LocationSection() {
         </AnimatedSection>
 
         <div className="grid lg:grid-cols-2 gap-8 items-center">
-          {/* Map placeholder */}
+          {/* Яндекс.Карта */}
           <AnimatedSection delay={100}>
             <div className="relative aspect-video lg:aspect-square rounded-xl overflow-hidden border shadow-lg">
-              <SafeImage
-                src={siteConfig.maps.placeholder}
-                alt="Карта расположения Fitness City"
-                className="w-full h-full object-cover"
+              <iframe
+                src="https://yandex.ru/map-widget/v1/?ll=43.044686%2C44.031876&z=15&pt=43.044686%2C44.031876&l=map"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                allowFullScreen
+                style={{ border: 0 }}
+                title="Карта расположения Fitness City"
+                className="w-full h-full"
               />
-              {/* Overlay with map pin */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-4 animate-bounce">
-                    <MapPin className="w-8 h-8" />
-                  </div>
-                  <p className="font-semibold text-lg">Fitness City</p>
-                </div>
-              </div>
             </div>
           </AnimatedSection>
 
@@ -55,7 +50,7 @@ export function LocationSection() {
                       {siteConfig.contact.address}
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">
-                      5 минут от метро, удобная парковка
+                      Удобная парковка, доступная транспортная развязка
                     </p>
                   </div>
                 </div>
@@ -98,9 +93,9 @@ export function LocationSection() {
               <div className="text-sm text-muted-foreground bg-muted/50 rounded-lg p-4">
                 <p className="font-medium text-foreground mb-2">Как добраться:</p>
                 <ul className="space-y-1">
-                  <li>• Метро: станция «Спортивная», выход 2</li>
-                  <li>• Автобус: остановка «Фитнес-центр», маршруты 10, 25, 48</li>
-                  <li>• На машине: бесплатная парковка на территории</li>
+                  <li>• Общественный транспорт: автобусы и маршрутки до остановки «Коллективная»</li>
+                  <li>• На машине: удобная парковка рядом со зданием</li>
+                  <li>• Пешком: в центре города, легко найти</li>
                 </ul>
               </div>
             </div>

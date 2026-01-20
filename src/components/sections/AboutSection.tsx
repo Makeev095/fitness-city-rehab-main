@@ -1,6 +1,6 @@
-import { Shield, GraduationCap, Target, Users } from "lucide-react";
+import { Shield, GraduationCap, Target, Users, Check } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
-import { aboutContent } from "@/config/siteConfig";
+import { aboutContent, siteConfig } from "@/config/siteConfig";
 import { cn } from "@/lib/utils";
 import { SafeImage } from "@/components/SafeImage";
 
@@ -86,6 +86,36 @@ export function AboutSection() {
             );
           })}
         </div>
+
+        {/* Amenities */}
+        {siteConfig.amenities && siteConfig.amenities.length > 0 && (
+          <>
+            <AnimatedSection delay={700}>
+              <div className="text-center mb-8 mt-16">
+                <h3 className="text-2xl sm:text-3xl font-bold">Удобства и особенности</h3>
+                <p className="text-muted-foreground mt-2">
+                  Всё для вашего комфорта
+                </p>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={800}>
+              <div className="bg-card rounded-xl p-6 border">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {siteConfig.amenities.map((amenity, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-2 text-sm"
+                    >
+                      <Check className="w-4 h-4 text-primary shrink-0" />
+                      <span className="text-foreground">{amenity}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </AnimatedSection>
+          </>
+        )}
       </div>
     </section>
   );

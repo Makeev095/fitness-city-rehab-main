@@ -54,9 +54,16 @@ export function PricingSection() {
                       </p>
 
                       {/* Duration */}
-                      <p className="text-sm text-muted-foreground mb-3">
+                      <p className="text-sm text-muted-foreground mb-2">
                         {item.duration}
                       </p>
+
+                      {/* Description */}
+                      {item.description && (
+                        <p className="text-xs text-muted-foreground mb-2">
+                          {item.description}
+                        </p>
+                      )}
 
                       {/* Savings */}
                       {item.savings && (
