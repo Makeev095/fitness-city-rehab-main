@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run copy-htaccess",
+    "copy-htaccess": "cp .htaccess dist/ 2>/dev/null || echo 'Note: .htaccess will be copied manually'",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
+    "deploy": "./deploy.sh",
     "test": "vitest run",
     "test:watch": "vitest"
   },

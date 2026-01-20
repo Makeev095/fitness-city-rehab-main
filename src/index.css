@@ -83,11 +83,29 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply text-foreground font-sans antialiased;
     background-image: var(--site-bg);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
+  }
+  
+  /* Логотип на фоне с прозрачностью */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/logo.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 600px auto;
+    opacity: 0.22;
+    pointer-events: none;
+    z-index: 0;
   }
 
   /* Respect reduced motion preferences */

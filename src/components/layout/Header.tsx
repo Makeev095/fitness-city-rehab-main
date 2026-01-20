@@ -53,17 +53,13 @@ export function Header() {
           <a 
             href="#hero" 
             onClick={(e) => handleNavClick(e, "#hero")}
-            className="flex items-center gap-2 group"
+            className="flex items-center group"
           >
-            <div className="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
-              FC
-            </div>
-            <span className={cn(
-              "font-bold text-lg hidden sm:block transition-colors",
-              isScrolled ? "text-foreground" : "text-white"
-            )}>
-              {siteConfig.name}
-            </span>
+            <img 
+              src="/logo.png" 
+              alt={siteConfig.name}
+              className="h-28 md:h-32 w-auto object-contain group-hover:scale-105 transition-transform"
+            />
           </a>
 
           {/* Desktop Navigation */}
