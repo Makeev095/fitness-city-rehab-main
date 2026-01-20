@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, MessageCircle, Send, Instagram, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 import { siteConfig } from "@/config/siteConfig";
 
 export function Footer() {
@@ -141,9 +142,9 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>© {currentYear} {siteConfig.name}. Все права защищены.</p>
-          <a href="#privacy" className="hover:text-primary transition-colors">
+          <Link to="/privacy-policy" className="hover:text-primary transition-colors">
             Политика конфиденциальности
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

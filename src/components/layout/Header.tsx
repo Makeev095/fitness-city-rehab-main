@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/siteConfig";
 import { cn } from "@/lib/utils";
@@ -7,6 +8,8 @@ import { cn } from "@/lib/utils";
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,9 +35,16 @@ export function Header() {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
+    
+    // Если мы не на главной странице, переходим на главную с якорем
+    if (location.pathname !== "/") {
+      navigate({ pathname: "/", hash: href.substring(1) }); // href содержит "#about", убираем #
+    } else {
+      // Если уже на главной, просто скроллим
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -77,6 +87,15 @@ export function Header() {
                 {item.label}
               </a>
             ))}
+            <Link
+              to="/documents"
+              className={cn(
+                "font-medium transition-colors hover:text-primary",
+                isScrolled ? "text-foreground" : "text-white/90 hover:text-white"
+              )}
+            >
+              Документы
+            </Link>
           </nav>
 
           {/* Actions */}
@@ -150,6 +169,15 @@ export function Header() {
                   </a>
                 </li>
               ))}
+              <li>
+                <Link
+                  to="/documents"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block py-3 px-4 rounded-lg font-medium text-foreground hover:bg-muted transition-colors"
+                >
+                  Документы
+                </Link>
+              </li>
             </ul>
           </nav>
 
