@@ -14,6 +14,13 @@
   RewriteRule ^ index.html [L]
 </IfModule>
 
+# Правильные MIME типы для JS и CSS
+<IfModule mod_mime.c>
+  AddType application/javascript js mjs
+  AddType text/css css
+  AddType application/json json
+</IfModule>
+
 # Enable compression
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
@@ -35,8 +42,22 @@
 
 # Security headers
 <IfModule mod_headers.c>
+  # Защита от MIME-sniffing
   Header set X-Content-Type-Options "nosniff"
+  
+  # Защита от clickjacking
   Header set X-Frame-Options "SAMEORIGIN"
+  
+  # Защита от XSS
   Header set X-XSS-Protection "1; mode=block"
+  
+  # Referrer Policy
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  
+  # Permissions Policy
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  
+  # Content Security Policy
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://yandex.ru https://wa.me https://t.me; frame-src 'self' https://yandex.ru;"
 </IfModule>
 

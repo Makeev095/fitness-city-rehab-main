@@ -45,7 +45,7 @@ export function AboutSection() {
               {/* Image placeholder */}
               <div className="relative aspect-video rounded-xl overflow-hidden mt-4">
                 <SafeImage
-                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=450&fit=crop"
+                  src="/placeholder.svg"
                   alt="Тренировка в Fitness City"
                   className="w-full h-full object-cover"
                 />

@@ -19,7 +19,7 @@ export function HeroSection() {
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <SafeImage
-          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&h=1080&fit=crop"
+          src="/placeholder.svg"
           alt="Фитнес-центр Fitness City"
           className="w-full h-full object-cover"
         />

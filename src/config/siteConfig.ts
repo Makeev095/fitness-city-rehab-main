@@ -8,7 +8,7 @@
 export const siteConfig = {
   // Basic site info
   name: "Fitness City",
-  tagline: "Фитнес и реабилитация / ЛФК",
+  tagline: "Спорт и медицина",
   description: "Безопасные тренировки, восстановление и укрепление здоровья",
   
   // Contact information
@@ -26,8 +26,8 @@ export const siteConfig = {
   maps: {
     yandex: "https://yandex.ru/maps/org/fitness_city/1563493270/?ll=43.044686%2C44.031876&z=15",
     google: "https://goo.gl/maps/XXXXX",
-    // Placeholder image for map
-    placeholder: "https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=1200&h=600&fit=crop",
+    // Placeholder image for map (локальный файл)
+    placeholder: "/placeholder.svg",
   },
   
   // Social media
@@ -112,7 +112,22 @@ export const aboutContent = {
 };
 
 // Services data
-export const services = [
+export type ServiceContact = {
+  phone: string;
+  phoneLink: string;
+  whatsapp: string;
+};
+
+export type Service = {
+  id: string;
+  title: string;
+  description: string;
+  forWhom: string;
+  icon: string;
+  contact?: ServiceContact;
+};
+
+export const services: Service[] = [
   {
     id: "gym",
     title: "Тренажерный зал",
@@ -121,18 +136,11 @@ export const services = [
     icon: "Activity",
   },
   {
-    id: "lfk",
-    title: "ЛФК / Лечебная физкультура",
-    description: "Специальные упражнения для поддержания и укрепления здоровья. Занятия проводятся под контролем специалистов с учётом рекомендаций врачей.",
-    forWhom: "Для тех, кому рекомендованы занятия лечебной физкультурой",
-    icon: "HeartPulse",
-  },
-  {
-    id: "kinesiotherapy",
-    title: "Кинезиотерапия",
-    description: "Лечение движением. Специализированные программы для восстановления и укрепления опорно-двигательного аппарата.",
-    forWhom: "Для восстановления после травм и операций",
-    icon: "Activity",
+    id: "group",
+    title: "Групповые занятия (Женский зал)",
+    description: "Йога, пилатес, силовая аэробика, функциональный тренинг. Комфортные групповые занятия в женском зале для поддержания формы и хорошего настроения.",
+    forWhom: "Для женщин, которые любят заниматься в компании",
+    icon: "Users",
   },
   {
     id: "personal",
@@ -142,45 +150,72 @@ export const services = [
     icon: "UserCheck",
   },
   {
-    id: "group",
-    title: "Групповые занятия",
-    description: "Йога, пилатес, силовая аэробика, функциональный тренинг. Занятия в группах для поддержания формы и хорошего настроения.",
-    forWhom: "Для тех, кто любит заниматься в компании",
-    icon: "Users",
+    id: "lfk",
+    title: "ЛФК",
+    description: "Специальные упражнения для поддержания и укрепления здоровья. Занятия проводятся под контролем специалистов с учётом рекомендаций врачей.",
+    forWhom: "Для тех, кому рекомендованы занятия лечебной физкультурой",
+    icon: "HeartPulse",
   },
   {
     id: "martial",
-    title: "Боевые искусства (КУДО)",
-    description: "Смешанные единоборства КУДО. Тренировки для развития силы, выносливости и навыков самообороны.",
+    title: "Боевые искусства",
+    description: "Тренировки по единоборствам (в т.ч. КУДО) для развития силы, выносливости и навыков самообороны.",
     forWhom: "Для всех, кто интересуется боевыми искусствами",
     icon: "Activity",
-  },
-  {
-    id: "massage",
-    title: "Массаж",
-    description: "Профессиональный массаж для расслабления, восстановления и улучшения самочувствия.",
-    forWhom: "Для всех, кто хочет расслабиться и восстановиться",
-    icon: "Heart",
-  },
-  {
-    id: "cosmetology",
-    title: "Косметологические услуги",
-    description: "Прессотерапия, кавитация и другие процедуры для коррекции фигуры и улучшения состояния кожи.",
-    forWhom: "Для тех, кто заботится о внешности",
-    icon: "Flower2",
-  },
-  {
-    id: "nutrition",
-    title: "Консультация по питанию",
-    description: "Индивидуальные консультации диетолога. Программы здорового питания для достижения ваших целей.",
-    forWhom: "Для тех, кто хочет правильно питаться",
-    icon: "HeartPulse",
   },
   {
     id: "body-analysis",
     title: "Анализ состава тела",
     description: "Биоимпедансометрия — точный анализ состава тела: процент жира, мышц, воды. Контроль прогресса.",
     forWhom: "Для отслеживания результатов тренировок",
+    contact: {
+      phone: "+7 (928) 262-10-48",
+      phoneLink: "tel:+79282621048",
+      whatsapp: "https://wa.me/79282621048",
+    },
+    icon: "Activity",
+  },
+  {
+    id: "nutrition",
+    title: "Консультация по питанию и антивозрастной медицине",
+    description: "Индивидуальные консультации по питанию и поддержанию здоровья. Рекомендации и программы для достижения ваших целей и улучшения самочувствия.",
+    forWhom: "Для тех, кто хочет выстроить питание и заботиться о здоровье",
+    contact: {
+      phone: "+7 (928) 262-10-48",
+      phoneLink: "tel:+79282621048",
+      whatsapp: "https://wa.me/79282621048",
+    },
+    icon: "HeartPulse",
+  },
+  {
+    id: "cosmetology",
+    title: "Косметические услуги",
+    description: "Прессотерапия, кавитация и другие процедуры для коррекции фигуры и улучшения состояния кожи.",
+    forWhom: "Для тех, кто заботится о внешности",
+    contact: {
+      phone: "+7 (928) 262-10-48",
+      phoneLink: "tel:+79282621048",
+      whatsapp: "https://wa.me/79282621048",
+    },
+    icon: "Flower2",
+  },
+  {
+    id: "massage",
+    title: "Массаж",
+    description: "Профессиональный массаж для расслабления, восстановления и улучшения самочувствия.",
+    forWhom: "Для всех, кто хочет расслабиться и восстановиться",
+    contact: {
+      phone: "+7 (902) 607-93-56",
+      phoneLink: "tel:+79026079356",
+      whatsapp: "https://wa.me/79026079356",
+    },
+    icon: "Heart",
+  },
+  {
+    id: "kinesiotherapy",
+    title: "Кинезиотерапия",
+    description: "Лечение движением. Специализированные программы для восстановления и укрепления опорно-двигательного аппарата.",
+    forWhom: "Для восстановления после травм и операций",
     icon: "Activity",
   },
   {
@@ -191,11 +226,16 @@ export const services = [
     icon: "Heart",
   },
   {
-    id: "women-gym",
-    title: "Женский зал",
-    description: "Отдельный зал для женщин с комфортной атмосферой и всем необходимым оборудованием.",
-    forWhom: "Для женщин, которые предпочитают заниматься отдельно",
-    icon: "Users",
+    id: "dna-tests",
+    title: "ДНК тесты",
+    description: "Генетические тесты для оценки индивидуальных особенностей организма и рекомендаций по образу жизни.",
+    forWhom: "Для тех, кто хочет лучше понять особенности своего организма",
+    contact: {
+      phone: "+7 (928) 262-10-48",
+      phoneLink: "tel:+79282621048",
+      whatsapp: "https://wa.me/79282621048",
+    },
+    icon: "Activity",
   },
 ];
 
@@ -207,7 +247,7 @@ export const trainers = [
     specialization: "Реабилитация, ЛФК",
     experience: "12 лет опыта",
     certifications: ["Сертифицированный реабилитолог", "Специалист по ЛФК"],
-    photo: "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=400&h=500&fit=crop",
+    photo: "/placeholder.svg",
     tags: ["ЛФК", "Реабилитация"],
   },
   {
@@ -216,7 +256,7 @@ export const trainers = [
     specialization: "Лечебная гимнастика, Здоровая спина",
     experience: "8 лет опыта",
     certifications: ["Инструктор ЛФК", "Кинезиолог"],
-    photo: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&h=500&fit=crop",
+    photo: "/placeholder.svg",
     tags: ["ЛФК", "Здоровая спина"],
   },
   {
@@ -225,7 +265,7 @@ export const trainers = [
     specialization: "Силовой тренинг, Персональные тренировки",
     experience: "10 лет опыта",
     certifications: ["Персональный тренер", "Специалист по силовой подготовке"],
-    photo: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=500&fit=crop",
+    photo: "/placeholder.svg",
     tags: ["Силовой", "Персональный"],
   },
   {
@@ -234,7 +274,7 @@ export const trainers = [
     specialization: "Mobility, Растяжка, Йога",
     experience: "6 лет опыта",
     certifications: ["Инструктор по йоге", "Специалист по растяжке"],
-    photo: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=500&fit=crop",
+    photo: "/placeholder.svg",
     tags: ["Растяжка", "Mobility"],
   },
   {
@@ -243,7 +283,7 @@ export const trainers = [
     specialization: "Реабилитация, Коррекция осанки",
     experience: "15 лет опыта",
     certifications: ["Мастер спорта", "Реабилитолог"],
-    photo: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=500&fit=crop",
+    photo: "/placeholder.svg",
     tags: ["Реабилитация", "Осанка"],
   },
   {
@@ -252,7 +292,7 @@ export const trainers = [
     specialization: "Групповые занятия, ЛФК",
     experience: "7 лет опыта",
     certifications: ["Фитнес-инструктор", "Специалист ЛФК"],
-    photo: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=500&fit=crop",
+    photo: "/placeholder.svg",
     tags: ["Групповые", "ЛФК"],
   },
   {
@@ -261,7 +301,7 @@ export const trainers = [
     specialization: "Силовой тренинг, Здоровая спина",
     experience: "9 лет опыта",
     certifications: ["Персональный тренер", "Кинезиотерапевт"],
-    photo: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&h=500&fit=crop",
+    photo: "/placeholder.svg",
     tags: ["Силовой", "Здоровая спина"],
   },
   {
@@ -270,7 +310,7 @@ export const trainers = [
     specialization: "Программа 55+, Лечебная гимнастика",
     experience: "11 лет опыта",
     certifications: ["Геронтолог", "Инструктор ЛФК"],
-    photo: "https://images.unsplash.com/photo-1609899517237-7f97c24ea8e2?w=400&h=500&fit=crop",
+    photo: "/placeholder.svg",
     tags: ["55+", "ЛФК"],
   },
 ];

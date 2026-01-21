@@ -62,6 +62,8 @@ export function ServicesSection() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map((service, index) => {
             const IconComponent = iconMap[service.icon];
+            const contact: { phoneLink: string; whatsapp: string } =
+              service.contact ?? siteConfig.contact;
             return (
               <AnimatedSection key={service.id} delay={100 + index * 50}>
                 <div
@@ -98,7 +100,7 @@ export function ServicesSection() {
                       size="sm"
                       className="flex-1 text-xs"
                     >
-                      <a href={siteConfig.contact.phoneLink}>
+                      <a href={contact.phoneLink}>
                         <Phone className="w-3 h-3 mr-1" />
                         Позвонить
                       </a>
@@ -109,7 +111,7 @@ export function ServicesSection() {
                       size="sm"
                       className="flex-1 text-xs"
                     >
-                      <a href={siteConfig.contact.whatsapp} target="_blank" rel="noopener noreferrer">
+                      <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer">
                         <MessageCircle className="w-3 h-3 mr-1" />
                         WhatsApp
                       </a>
