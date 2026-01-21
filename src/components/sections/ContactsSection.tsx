@@ -108,13 +108,13 @@ export function ContactsSection() {
                 Начните путь к здоровью сегодня
               </h3>
               <p className="text-white/90 mb-4">
-                Первая консультация — бесплатно. Мы подберём программу специально для вас.
+                Мы подберём программу специально для вас.
               </p>
               <Button
                 asChild
                 size="lg"
                 variant="secondary"
-                className="bg-white text-foreground hover:bg-white/90"
+                className="bg-white text-fitness-dark hover:bg-white/90 hover:text-fitness-dark"
               >
                 <a href={siteConfig.contact.phoneLink}>
                   <Phone className="w-5 h-5 mr-2" />

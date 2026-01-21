@@ -9,31 +9,33 @@ export const siteConfig = {
   // Basic site info
   name: "Fitness City",
   tagline: "Спорт и медицина",
-  description: "Безопасные тренировки, восстановление и укрепление здоровья",
+  description: "Эффективные тренировки, восстановление и укрепление здоровья",
   
   // Contact information
   contact: {
     phone: "+7 (938) 313-77-17",
     phoneLink: "tel:+79383137717",
     whatsapp: "https://wa.me/79383137717",
-    telegram: "https://t.me/fitnesscity",
-    email: "info@fitnesscity.ru",
-    emailLink: "mailto:info@fitnesscity.ru",
+    // Telegram link to open chat by phone number
+    telegram: "https://t.me/+79282621048",
+    email: "nbereznitskaya@mail.ru",
+    emailLink: "mailto:nbereznitskaya@mail.ru",
     address: "г. Пятигорск, ул. Коллективная, д. 3Б, стр. 2, 2 этаж",
   },
   
   // Map links
   maps: {
     yandex: "https://yandex.ru/maps/org/fitness_city/1563493270/?ll=43.044686%2C44.031876&z=15",
-    google: "https://goo.gl/maps/XXXXX",
+    // Google Maps uses lat,lng (Yandex widget above uses lng,lat)
+    google: "https://www.google.com/maps/search/?api=1&query=44.031876%2C43.044686",
     // Placeholder image for map (локальный файл)
-    placeholder: "/placeholder.svg",
+    placeholder: "/images/photo-1569336415962-a4bd9f69cd83.jpg",
   },
   
   // Social media
   social: {
-    instagram: "https://www.instagram.com/fitness__city26/",
-    vk: "https://vk.com/fitnesscity",
+    instagram: "https://www.instagram.com/fitness__city26/reels/?__d=1utm_sourceig_embed",
+    vk: "https://vk.com/club58209085",
     youtube: "https://youtube.com/@fitnesscity",
   },
   
@@ -47,7 +49,7 @@ export const siteConfig = {
   // Hero section badges
   benefits: [
     { text: "Индивидуальный подход", icon: "User" },
-    { text: "Бережные методики", icon: "Heart" },
+    { text: "Эффективные методики", icon: "Heart" },
     { text: "Опытные специалисты", icon: "Award" },
     { text: "Комфортный зал", icon: "Home" },
   ],
@@ -70,9 +72,9 @@ export const aboutContent = {
   title: "О нас",
   subtitle: "Ваш путь к здоровью и хорошему самочувствию",
   paragraphs: [
-    "Fitness City — это современный фитнес-центр, специализирующийся на восстановительных тренировках и лечебной физкультуре. Мы создали пространство, где каждый может заниматься безопасно и эффективно, независимо от уровня подготовки и состояния здоровья.",
+    "Fitness City — это современный фитнес-центр, специализирующийся на восстановительных тренировках и лечебной физкультуре. Мы создали пространство, где каждый может заниматься эффективно и с комфортом, независимо от уровня подготовки и состояния здоровья.",
     "Наш подход основан на индивидуальной работе с каждым клиентом. Мы внимательно изучаем ваши цели, особенности организма и возможные ограничения, чтобы разработать программу, которая подходит именно вам.",
-    "Мы работаем с людьми, которым важно восстановиться после травм или операций, укрепить спину, улучшить подвижность суставов или просто поддерживать тело в тонусе бережными методами.",
+    "Мы работаем с людьми, которым важно восстановиться после травм или операций, укрепить спину, улучшить подвижность суставов или просто поддерживать тело в тонусе эффективными методами.",
   ],
   trustPoints: [
     {
@@ -83,7 +85,7 @@ export const aboutContent = {
     {
       icon: "GraduationCap",
       title: "Квалификация",
-      description: "Тренеры с профильным образованием и опытом работы в реабилитации",
+      description: "Тренеры с профильным образованием и опытом работы в восстановительных программах",
     },
     {
       icon: "Target",
@@ -240,15 +242,42 @@ export const services: Service[] = [
 ];
 
 // Trainers data
-export const trainers = [
+export type TrainerDocument = {
+  title: string;
+  /** Optional description (e.g., "Сертификат", "Диплом", "Удостоверение") */
+  kind?: string;
+  /** Optional file URL/path to open/download */
+  url?: string;
+};
+
+export type Trainer = {
+  id: number;
+  name: string;
+  specialization: string;
+  experience: string;
+  certifications: string[];
+  photo: string;
+  tags: string[];
+  /** Per-trainer phone; will be filled later */
+  phone?: string;
+  /** tel: link for call button */
+  phoneLink?: string;
+  /** Documents/certificates to show in modal */
+  documents?: TrainerDocument[];
+};
+
+export const trainers: Trainer[] = [
   {
     id: 1,
     name: "Александр Петров",
-    specialization: "Реабилитация, ЛФК",
+    specialization: "Восстановительный фитнес, ЛФК",
     experience: "12 лет опыта",
-    certifications: ["Сертифицированный реабилитолог", "Специалист по ЛФК"],
-    photo: "/placeholder.svg",
-    tags: ["ЛФК", "Реабилитация"],
+    certifications: ["Специалист по восстановительному фитнесу", "Специалист по ЛФК"],
+    photo: "/images/photo-1567013127542-490d757e51fc.jpg",
+    tags: ["ЛФК", "Восстановительный фитнес"],
+    phone: siteConfig.contact.phone,
+    phoneLink: siteConfig.contact.phoneLink,
+    documents: [],
   },
   {
     id: 2,
@@ -256,8 +285,11 @@ export const trainers = [
     specialization: "Лечебная гимнастика, Здоровая спина",
     experience: "8 лет опыта",
     certifications: ["Инструктор ЛФК", "Кинезиолог"],
-    photo: "/placeholder.svg",
+    photo: "/images/photo-1594381898411-846e7d193883.jpg",
     tags: ["ЛФК", "Здоровая спина"],
+    phone: siteConfig.contact.phone,
+    phoneLink: siteConfig.contact.phoneLink,
+    documents: [],
   },
   {
     id: 3,
@@ -265,8 +297,11 @@ export const trainers = [
     specialization: "Силовой тренинг, Персональные тренировки",
     experience: "10 лет опыта",
     certifications: ["Персональный тренер", "Специалист по силовой подготовке"],
-    photo: "/placeholder.svg",
+    photo: "/images/photo-1571019614242-c5c5dee9f50b.jpg",
     tags: ["Силовой", "Персональный"],
+    phone: siteConfig.contact.phone,
+    phoneLink: siteConfig.contact.phoneLink,
+    documents: [],
   },
   {
     id: 4,
@@ -274,17 +309,23 @@ export const trainers = [
     specialization: "Mobility, Растяжка, Йога",
     experience: "6 лет опыта",
     certifications: ["Инструктор по йоге", "Специалист по растяжке"],
-    photo: "/placeholder.svg",
+    photo: "/images/photo-1518611012118-696072aa579a.jpg",
     tags: ["Растяжка", "Mobility"],
+    phone: siteConfig.contact.phone,
+    phoneLink: siteConfig.contact.phoneLink,
+    documents: [],
   },
   {
     id: 5,
     name: "Андрей Новиков",
-    specialization: "Реабилитация, Коррекция осанки",
+    specialization: "Восстановительный фитнес, Коррекция осанки",
     experience: "15 лет опыта",
-    certifications: ["Мастер спорта", "Реабилитолог"],
-    photo: "/placeholder.svg",
-    tags: ["Реабилитация", "Осанка"],
+    certifications: ["Мастер спорта", "Специалист по восстановительному фитнесу"],
+    photo: "/images/photo-1567013127542-490d757e51fc.jpg",
+    tags: ["Восстановительный фитнес", "Осанка"],
+    phone: siteConfig.contact.phone,
+    phoneLink: siteConfig.contact.phoneLink,
+    documents: [],
   },
   {
     id: 6,
@@ -292,8 +333,11 @@ export const trainers = [
     specialization: "Групповые занятия, ЛФК",
     experience: "7 лет опыта",
     certifications: ["Фитнес-инструктор", "Специалист ЛФК"],
-    photo: "/placeholder.svg",
+    photo: "/images/photo-1594381898411-846e7d193883.jpg",
     tags: ["Групповые", "ЛФК"],
+    phone: siteConfig.contact.phone,
+    phoneLink: siteConfig.contact.phoneLink,
+    documents: [],
   },
   {
     id: 7,
@@ -301,8 +345,11 @@ export const trainers = [
     specialization: "Силовой тренинг, Здоровая спина",
     experience: "9 лет опыта",
     certifications: ["Персональный тренер", "Кинезиотерапевт"],
-    photo: "/placeholder.svg",
+    photo: "/images/photo-1571019614242-c5c5dee9f50b.jpg",
     tags: ["Силовой", "Здоровая спина"],
+    phone: siteConfig.contact.phone,
+    phoneLink: siteConfig.contact.phoneLink,
+    documents: [],
   },
   {
     id: 8,
@@ -310,8 +357,11 @@ export const trainers = [
     specialization: "Программа 55+, Лечебная гимнастика",
     experience: "11 лет опыта",
     certifications: ["Геронтолог", "Инструктор ЛФК"],
-    photo: "/placeholder.svg",
+    photo: "/images/photo-1518611012118-696072aa579a.jpg",
     tags: ["55+", "ЛФК"],
+    phone: siteConfig.contact.phone,
+    phoneLink: siteConfig.contact.phoneLink,
+    documents: [],
   },
 ];
 
@@ -320,11 +370,13 @@ export const pricing = [
   {
     category: "Разовые посещения и услуги",
     items: [
-      { name: "Разовое посещение тренажерного зала", price: "500 ₽", duration: "1 раз" },
-      { name: "Анализ состава тела (биоимпедансометрия)", price: "1 500 ₽", duration: "1 раз" },
-      { name: "Консультация по питанию", price: "1 500 ₽", duration: "1 раз" },
+      { name: "Разовое посещение тренажерного зала", price: "600 ₽", duration: "1 посещение" },
+      { name: "Разовое посещение группового зала", price: "500 ₽", duration: "1 посещение" },
+      { name: "Анализ состава тела (биоимпедансометрия)", price: "1 500 ₽", duration: "1 посещение" },
+      { name: "Консультация по питанию", price: "1 500 ₽", duration: "1 посещение" },
       { name: "Прессотерапия", price: "1 000 ₽", duration: "1 сеанс" },
       { name: "Кавитация", price: "1 000 ₽", duration: "1 сеанс" },
+      { name: "Консультация по антивозрастной терапии", price: "2000 ₽", duration: "1 посещение" },
     ],
   },
   {

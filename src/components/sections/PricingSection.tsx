@@ -1,4 +1,4 @@
-import { Check, Star, Download, MessageCircle } from "lucide-react";
+import { Check, Star, Download } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { pricing } from "@/config/siteConfig";
@@ -88,16 +88,6 @@ export function PricingSection() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90">
-                <a
-                  href={siteConfig.contact.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="w-5 h-5 mr-2" />
-                  Получить прайс в WhatsApp
-                </a>
-              </Button>
-              <Button asChild variant="outline" size="lg">
                 <a href={siteConfig.pricingPdf} download>
                   <Download className="w-5 h-5 mr-2" />
                   Скачать PDF

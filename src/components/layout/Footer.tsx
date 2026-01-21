@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, MessageCircle, Send, Instagram, Youtube } from "lucide-react";
+import { Phone, Mail, MapPin, MessageCircle, Send, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 import { siteConfig } from "@/config/siteConfig";
 
@@ -40,15 +40,6 @@ export function Footer() {
                 aria-label="VK"
               >
                 <span className="font-bold text-sm">VK</span>
-              </a>
-              <a
-                href={siteConfig.social.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -108,8 +99,6 @@ export function Footer() {
                 </a>
                 <a
                   href={siteConfig.contact.telegram}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Send className="w-4 h-4" />

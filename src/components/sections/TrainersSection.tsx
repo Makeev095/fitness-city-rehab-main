@@ -1,29 +1,76 @@
-import { useState } from "react";
-import { MessageCircle, Send } from "lucide-react";
+import { useMemo, useState } from "react";
+import { FileText, Phone } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { SafeImage } from "@/components/SafeImage";
 import { trainers } from "@/config/siteConfig";
 import { siteConfig } from "@/config/siteConfig";
 import { cn } from "@/lib/utils";
 
-type FilterType = "all" | "ЛФК" | "Реабилитация" | "Силовой" | "Растяжка";
+type FilterType = "all" | "gym" | "group" | "lfk" | "rehab";
 
 const filters: { label: string; value: FilterType }[] = [
   { label: "Все", value: "all" },
-  { label: "ЛФК", value: "ЛФК" },
-  { label: "Реабилитация", value: "Реабилитация" },
-  { label: "Силовой", value: "Силовой" },
-  { label: "Растяжка", value: "Растяжка" },
+  { label: "Тренажерный зал", value: "gym" },
+  { label: "Групповой зал", value: "group" },
+  { label: "ЛФК", value: "lfk" },
+  { label: "Восстановительный фитнес", value: "rehab" },
 ];
 
 export function TrainersSection() {
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
+  const [docsOpen, setDocsOpen] = useState(false);
+  const [selectedTrainerId, setSelectedTrainerId] = useState<number | null>(null);
+
+  const selectedTrainer = useMemo(
+    () => trainers.find((t) => t.id === selectedTrainerId) ?? null,
+    [selectedTrainerId],
+  );
+
+  const matchesFilter = (trainer: (typeof trainers)[number], filter: FilterType) => {
+    if (filter === "all") return true;
+
+    const tags = trainer.tags ?? [];
+    const specialization = (trainer.specialization ?? "").toLowerCase();
+
+    switch (filter) {
+      case "gym":
+        return (
+          tags.some((t) => t.includes("Силовой") || t.includes("Персональный")) ||
+          specialization.includes("силов") ||
+          specialization.includes("персон")
+        );
+      case "group":
+        return (
+          tags.some((t) => t.includes("Групповые") || t.includes("Растяжка") || t.includes("Mobility")) ||
+          specialization.includes("групп") ||
+          specialization.includes("растяж") ||
+          specialization.includes("йога") ||
+          specialization.includes("mobility")
+        );
+      case "lfk":
+        return tags.some((t) => t.includes("ЛФК")) || specialization.includes("лфк") || specialization.includes("лечеб");
+      case "rehab":
+        return (
+          tags.some((t) => t.includes("Восстановительный") || t.includes("Осанка") || t.includes("Здоровая спина") || t.includes("55+")) ||
+          specialization.includes("восстанов") ||
+          specialization.includes("осанк") ||
+          specialization.includes("здоров")
+        );
+      default:
+        return true;
+    }
+  };
 
   const filteredTrainers = trainers.filter(
-    (trainer) =>
-      activeFilter === "all" ||
-      trainer.tags.some((tag) => tag.includes(activeFilter))
+    (trainer) => matchesFilter(trainer, activeFilter)
   );
 
   return (
@@ -80,28 +127,21 @@ export function TrainersSection() {
                         size="sm"
                         className="bg-secondary hover:bg-secondary/90"
                       >
-                        <a
-                          href={siteConfig.contact.whatsapp}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <MessageCircle className="w-4 h-4 mr-1" />
-                          WhatsApp
+                        <a href={trainer.phoneLink ?? siteConfig.contact.phoneLink}>
+                          <Phone className="w-4 h-4 mr-1" />
+                          Позвонить
                         </a>
                       </Button>
                       <Button
-                        asChild
                         size="sm"
                         className="bg-primary hover:bg-primary/90"
+                        onClick={() => {
+                          setSelectedTrainerId(trainer.id);
+                          setDocsOpen(true);
+                        }}
                       >
-                        <a
-                          href={siteConfig.contact.telegram}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Send className="w-4 h-4 mr-1" />
-                          Telegram
-                        </a>
+                        <FileText className="w-4 h-4 mr-1" />
+                        Документы
                       </Button>
                     </div>
                   </div>
@@ -143,6 +183,60 @@ export function TrainersSection() {
           ))}
         </div>
       </div>
+
+      <Dialog
+        open={docsOpen}
+        onOpenChange={(open) => {
+          setDocsOpen(open);
+          if (!open) setSelectedTrainerId(null);
+        }}
+      >
+        <DialogContent
+          className="bg-popover/95 backdrop-blur-xl border-border shadow-2xl"
+          overlayClassName="bg-gradient-to-br from-fitness-blue/35 via-black/70 to-fitness-red/35 backdrop-blur-sm"
+          badgeClassName="-top-72 sm:-top-[21rem]"
+          badge={
+            <SafeImage
+              src="/logo.png"
+              alt="Fitness City"
+              className="h-40 sm:h-48 w-auto drop-shadow-[0_18px_45px_rgba(0,0,0,0.60)]"
+            />
+          }
+        >
+          <DialogHeader className="text-center">
+            <DialogTitle className="text-2xl sm:text-3xl font-semibold tracking-tight">
+              {selectedTrainer?.name ?? "Тренер"}
+            </DialogTitle>
+          </DialogHeader>
+
+          {selectedTrainer?.documents && selectedTrainer.documents.length > 0 ? (
+            <div className="space-y-3">
+              {selectedTrainer.documents.map((doc, idx) => (
+                <div key={`${doc.title}-${idx}`} className="rounded-lg border p-3">
+                  <div className="font-medium">{doc.title}</div>
+                  {doc.kind && (
+                    <div className="text-sm text-muted-foreground">{doc.kind}</div>
+                  )}
+                  {doc.url && (
+                    <a
+                      className="mt-2 inline-flex text-sm text-secondary underline underline-offset-4"
+                      href={doc.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Открыть
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-sm text-muted-foreground">
+              Документы пока не добавлены.
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
