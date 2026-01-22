@@ -43,25 +43,24 @@ export function TrainersSection() {
     switch (filter) {
       case "gym":
         return (
-          tags.some((t) => t.includes("Силовой") || t.includes("Персональный")) ||
+          tags.some((t) => t.includes("Силовой")) ||
           specialization.includes("силов") ||
-          specialization.includes("персон")
+          specialization.includes("тренаж")
         );
       case "group":
         return (
-          tags.some((t) => t.includes("Групповые") || t.includes("Растяжка") || t.includes("Mobility")) ||
+          tags.some((t) => t.includes("Групповые") || t.includes("Пилатес") || t.includes("Стретчинг")) ||
           specialization.includes("групп") ||
-          specialization.includes("растяж") ||
-          specialization.includes("йога") ||
-          specialization.includes("mobility")
+          specialization.includes("пилатес") ||
+          specialization.includes("стретч")
         );
       case "lfk":
         return tags.some((t) => t.includes("ЛФК")) || specialization.includes("лфк") || specialization.includes("лечеб");
       case "rehab":
         return (
-          tags.some((t) => t.includes("Восстановительный") || t.includes("Осанка") || t.includes("Здоровая спина") || t.includes("55+")) ||
+          tags.some((t) => t.includes("Восстановительный") || t.includes("Коррекция") || t.includes("Здоровая спина") || t.includes("Дыханием") || t.includes("45+")) ||
           specialization.includes("восстанов") ||
-          specialization.includes("осанк") ||
+          specialization.includes("коррек") ||
           specialization.includes("здоров")
         );
       default:
@@ -117,7 +116,11 @@ export function TrainersSection() {
                   <SafeImage
                     src={trainer.photo}
                     alt={trainer.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className={cn(
+                      "w-full h-full object-cover transition-transform duration-500",
+                      trainer.photoClassName,
+                      trainer.photoHoverClassName ?? "group-hover:scale-105"
+                    )}
                   />
                   {/* Overlay with contact buttons */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
@@ -152,9 +155,6 @@ export function TrainersSection() {
                   <h3 className="font-semibold text-lg">{trainer.name}</h3>
                   <p className="text-sm text-muted-foreground mb-2">
                     {trainer.specialization}
-                  </p>
-                  <p className="text-xs text-secondary font-medium mb-3">
-                    {trainer.experience}
                   </p>
 
                   {/* Tags */}
