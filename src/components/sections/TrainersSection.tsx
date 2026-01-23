@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -29,9 +28,18 @@ export function TrainersSection() {
   const [docsOpen, setDocsOpen] = useState(false);
   const [selectedTrainerId, setSelectedTrainerId] = useState<number | null>(null);
 
+  // Display order tweak: move Давид Газаров to 3rd position (without changing IDs/data structure)
+  const orderedTrainers = useMemo(() => {
+    const david = trainers.find((t) => t.id === 12);
+    if (!david) return trainers;
+    const rest = trainers.filter((t) => t.id !== 12);
+    rest.splice(2, 0, david);
+    return rest;
+  }, []);
+
   const selectedTrainer = useMemo(
-    () => trainers.find((t) => t.id === selectedTrainerId) ?? null,
-    [selectedTrainerId],
+    () => orderedTrainers.find((t) => t.id === selectedTrainerId) ?? null,
+    [selectedTrainerId, orderedTrainers],
   );
 
   const matchesFilter = (trainer: (typeof trainers)[number], filter: FilterType) => {
@@ -68,7 +76,7 @@ export function TrainersSection() {
     }
   };
 
-  const filteredTrainers = trainers.filter(
+  const filteredTrainers = orderedTrainers.filter(
     (trainer) => matchesFilter(trainer, activeFilter)
   );
 
@@ -123,8 +131,8 @@ export function TrainersSection() {
                     )}
                   />
                   {/* Overlay with contact buttons */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                    <div className="flex gap-2">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4 px-3">
+                    <div className="flex flex-wrap justify-center gap-2 w-full">
                       <Button
                         asChild
                         size="sm"
@@ -144,7 +152,7 @@ export function TrainersSection() {
                         }}
                       >
                         <FileText className="w-4 h-4 mr-1" />
-                        Документы
+                        Квалификация
                       </Button>
                     </div>
                   </div>
@@ -203,32 +211,55 @@ export function TrainersSection() {
             />
           }
         >
-          <DialogHeader className="text-center">
+          {/* Override default DialogHeader behavior (sm:text-left) to keep centered on all breakpoints */}
+          <DialogHeader className="text-center sm:text-center">
             <DialogTitle className="text-2xl sm:text-3xl font-semibold tracking-tight">
               {selectedTrainer?.name ?? "Тренер"}
             </DialogTitle>
           </DialogHeader>
 
           {selectedTrainer?.documents && selectedTrainer.documents.length > 0 ? (
-            <div className="space-y-3">
-              {selectedTrainer.documents.map((doc, idx) => (
-                <div key={`${doc.title}-${idx}`} className="rounded-lg border p-3">
-                  <div className="font-medium">{doc.title}</div>
-                  {doc.kind && (
-                    <div className="text-sm text-muted-foreground">{doc.kind}</div>
-                  )}
-                  {doc.url && (
+            <div className="max-h-[60vh] overflow-y-auto pr-1">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {selectedTrainer.documents.map((doc, idx) => {
+                  const href = doc.url ?? doc.previewUrl;
+                  const preview = doc.previewUrl ?? doc.url;
+
+                  const Card = (
+                    <div className="rounded-xl border bg-card/40 overflow-hidden hover:border-secondary/60 transition-colors">
+                      {preview ? (
+                        <div className="relative aspect-[3/4] overflow-hidden">
+                          <SafeImage
+                            src={preview}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                        </div>
+                      ) : (
+                        <div className="aspect-[3/4] grid place-items-center text-muted-foreground">
+                          <FileText className="w-8 h-8" />
+                        </div>
+                      )}
+                    </div>
+                  );
+
+                  return href ? (
                     <a
-                      className="mt-2 inline-flex text-sm text-secondary underline underline-offset-4"
-                      href={doc.url}
+                      key={`${href}-${idx}`}
+                      href={href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="block"
+                      aria-label={`Открыть документ ${idx + 1}`}
                     >
-                      Открыть
+                      {Card}
                     </a>
-                  )}
-                </div>
-              ))}
+                  ) : (
+                    <div key={`doc-${idx}`}>{Card}</div>
+                  );
+                })}
+              </div>
             </div>
           ) : (
             <div className="text-sm text-muted-foreground">
