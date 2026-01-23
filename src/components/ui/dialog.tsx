@@ -41,7 +41,7 @@ const DialogContent = React.forwardRef<
 >(({ className, overlayClassName, badge, badgeClassName, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay className={overlayClassName} />
-    <div className="fixed left-[50%] top-[50%] z-50 w-full max-w-lg translate-x-[-50%] translate-y-[-50%]">
+    <div className="fixed left-[50%] top-[50%] z-50 w-[calc(100vw-2rem)] max-w-3xl translate-x-[-50%] translate-y-[-50%]">
       {badge ? (
         <div className={cn("absolute left-1/2 -top-14 -translate-x-1/2", badgeClassName)}>
           {badge}
