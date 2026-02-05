@@ -25,10 +25,12 @@ if [ ! -d "dist" ]; then
     exit 1
 fi
 
-# Копирование .htaccess в dist
+# Копирование .htaccess в dist (если используете Apache)
 if [ -f ".htaccess" ]; then
     echo "📋 Копируем .htaccess..."
     cp .htaccess dist/
+else
+    echo "ℹ️  .htaccess не найден — пропускаем (для nginx не нужен)"
 fi
 
 echo "✅ Сборка завершена!"

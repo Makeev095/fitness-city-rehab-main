@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run copy-htaccess",
+    "build": "vite build && npm run copy-htaccess && node postbuild-spa-routes.mjs",
     "copy-htaccess": "cp .htaccess dist/ 2>/dev/null || echo 'Note: .htaccess will be copied manually'",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
